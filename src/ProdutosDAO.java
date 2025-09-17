@@ -27,9 +27,23 @@ public class ProdutosDAO {
    
     
     public void cadastrarProduto (ProdutosDTO produto){
+         String sql = "insert into produtos (nome, valor, status) values" + "(?,?,?)";
+         
+       
+        try{
+            
+        Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11?autoReconnect=true&useSSL=false", "root", "dpul1234");
         
+        PreparedStatement conversa = connect.prepareStatement(sql);
+        conversa.setString(1, produto.getNome());
+        conversa.setInt(2, produto.getValor());
+        conversa.setString(3, produto.getStatus());
+        conversa.execute();
         
-        //conn = new conectaDAO().connectDB();
+        JOptionPane.showMessageDialog(null, "cadastro feito com sucesso");
+        }catch(SQLException e){
+        JOptionPane.showMessageDialog(null, " erro ao cadastrar");
+        }
         
         
     }
@@ -41,7 +55,7 @@ public class ProdutosDAO {
        try{
            
         
-        Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11", "root", "dpul1234");
+        Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11?autoReconnect=true&useSSL=false", "root", "dpul1234");
         PreparedStatement conversa = connect.prepareStatement(sql);
         ResultSet rs = conversa.executeQuery();
         
