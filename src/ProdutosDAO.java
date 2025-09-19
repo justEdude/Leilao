@@ -82,8 +82,56 @@ public class ProdutosDAO {
        
     }
     
+   public List<ProdutosDTO> listarProdutosVendidos(){
+       List<ProdutosDTO> listagem = new ArrayList();
+       String sql = "select * from produtos where status = " + "'Vendido'";
+       
+       try{
+           
+       Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11?autoReconnect=true&useSSL=false", "root", "dpul1234");
+       PreparedStatement conversa = connect.prepareStatement(sql);
+       ResultSet rs = conversa.executeQuery();
+       
+       while(rs.next()){
+       ProdutosDTO produto = new ProdutosDTO(); 
+       
+       produto.setId(rs.getInt("id"));
+       produto.setNome(rs.getString("nome"));
+       produto.setValor(rs.getInt("valor"));
+       produto.setStatus(rs.getString("status"));
+       
+       listagem.add(produto);
+           
+       }
+       
+       
+       }catch(SQLException e){
+           
+       }
+       
+       return listagem;
+       
+}   
     
-    
-        
+   public void venderProduto(ProdutosDTO produto){
+       String sql = "update produtos set status = 'Vendido' " + " where id = (?)";
+       
+       
+       try{
+       
+           
+        Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11?autoReconnect=true&useSSL=false", "root", "dpul1234");  
+        PreparedStatement conversa = connect.prepareStatement(sql);
+          conversa.setInt(1, produto.getId());
+          conversa.execute();
+           
+          JOptionPane.showMessageDialog(null, "edicao feita com sucesso");
+          
+       }catch(SQLException e){
+         JOptionPane.showMessageDialog(null, " erro ao editar" + e.getMessage());  
+       }
+       
+   }
+   
 }
 
