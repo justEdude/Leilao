@@ -141,11 +141,19 @@ public class listagemVIEW extends javax.swing.JFrame {
         
         ProdutosDTO produtosdto = new ProdutosDTO();
         
+<<<<<<< HEAD
+        ProdutosDTO dto = new ProdutosDTO();
+        
+        dto.setId(id);
+        
+        produtosdao.venderProduto(dto);
+=======
        produtosdto.setId(id);
        
        ProdutosDAO dao = new ProdutosDAO();
         
         dao.venderProduto(produtosdto);
+>>>>>>> 38fbeabadaff54284a2d8213ad5189e9d375d0f2
         listarProdutos();
     }//GEN-LAST:event_btnVenderActionPerformed
 
